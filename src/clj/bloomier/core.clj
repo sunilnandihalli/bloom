@@ -1,6 +1,6 @@
 (ns bloomier.core
- (:import [bloomier UserHistory$Iface UserHistory$Processor UserHistory$Client]
-           [bloomier Query Result])
+ (:import [com.github.sunilnandihalli. UserHistory$Iface UserHistory$Processor UserHistory$Client]
+          [bloomier Query Result])
  (:gen-class))
 
 
