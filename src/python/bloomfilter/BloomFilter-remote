@@ -172,7 +172,20 @@ elif cmd == 'is_bloom_filter_present':
     print 'is_bloom_filter_present requires 1 args'
     sys.exit(1)
   pp.pprint(client.is_bloom_filter_present(eval(args[0]),))
-
+elif cmd == 'test':
+  pp.pprint(client.inc(10,20))
+  pp.pprint(client.count(10,20))
+  pp.pprint(client.dec(10,20))
+  pp.pprint(client.add(10,20))
+  pp.pprint(client.contains(10,20))
+  pp.pprint(client.bulk_contains([1,2,3,4],[5,6,7,8]))
+  pp.pprint(client.aged_inc(10,20))
+  pp.pprint(client.aged_count(10,20))
+  pp.pprint(client.aged_dec(10,20))
+  pp.pprint(client.commonality_add(10,20))
+  pp.pprint(client.is_common(10,20))
+  pp.pprint(client.delete_bloom_filter(10))
+  pp.pprint(client.is_bloom_filter_present(20))
 else:
   print 'Unrecognized method %s' % cmd
   sys.exit(1)
