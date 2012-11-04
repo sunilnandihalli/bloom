@@ -25,6 +25,9 @@
   `(let [x# ~frm]
      (wait-for (clojure.inspector/inspect-tree {:form '~frm :val x#})) x#))
 
+(defmacro locals-map []
+  )
+
 #_(throwable-value "hello")    
 
 #_(defn throw-value [v err-str]
@@ -151,6 +154,9 @@
                                       (def ~new-name ~x)))) (keys &env))]
     `(do ~@new-prefixed-defs)))
 
+(defmacro display-local-and-wait []
+  )
+
 (defmacro def-curry-fn [name args & body]
   {:pre [(not-any? #{'&} args)]}
   (if (empty? args)
@@ -242,15 +248,18 @@
 (defn array? [x] (-> x class .isArray))
 (defn see [x] (if (array? x) (map see x) x))
 
-(defmacro display-local-bindings []
-  `(do ~@(map (fn [x#] (list p/pprint  [`'~x# x#])) (keys &env))))    
+#_(defmacro display-local-bindings []
+    `(do ~@(map (fn [x#] (list p/pprint  [`'~x# x#])) (keys &env))))    
 
 (defmacro display-local-bindings []
-  (let [generate-code-to-print-symbol (fn [x]
-					`(p/pprint ['~x ~x]))
-	all-local-symbols (keys &env)
-	list-of-all-print-statements (map generate-code-to-print-symbol all-local-symbols)]
-    `(do ~@list-of-all-print-statements)))
+  `(d ~(into {} (map (fn [x#] [`'~x# x#]) (keys &env)))))
+
+#_(defmacro display-local-bindings []
+    (let [generate-code-to-print-symbol (fn [x]
+                                          `(p/pprint ['~x ~x]))
+          all-local-symbols (keys &env)
+          list-of-all-print-statements (map generate-code-to-print-symbol all-local-symbols)]
+      `(do ~@list-of-all-print-statements)))
 
 (defn all-visible-fns []
   (->> *ns* ns-refers (map first) 
